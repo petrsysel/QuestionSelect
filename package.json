@@ -1,5 +1,5 @@
 {
-    "name": "tsc-vite-template",
+    "name": "question-select",
     "private": true,
     "version": "0.0.0",
     "type": "commonjs",
@@ -17,6 +17,6 @@
         "vite": "^5.0.8"
     },
     "dependencies": {
-        "easybox": "git://github.com/petrsysel/easybox.git#v0.1.2"
+        "easybox": "git://github.com/petrsysel/easybox.git#v0.1.4"
     }
 }
