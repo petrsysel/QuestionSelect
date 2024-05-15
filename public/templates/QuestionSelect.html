@@ -1,12 +1,18 @@
 <div class="center-divs">
-    <div class="invisible-button" id="manage-questions-btn"></div>
-    <div class="good-luck-label">
-        Hodně štěstí!
-    </div>
-    <button class="select-button" id="select-question-button">
-        Losovat
-    </button>
-    <div class="question-selected-label", id="question-selected-label">
-        Název otázky
+    <div class="layout-container v-center">
+        <div class="q-row hidden-panel">
+            <div class="hidden-btn hidden-menu" id="manage-questions-btn"></div>
+            <div class="hidden-btn hidden-reset" id="manage-questions-btn"></div>
+        </div>
+        
+        <button class="pick-btn" id="select-question-button">
+            Losovat
+        </button>
+        <div class="q-selected opacity-hidden", id="question-selected-label">
+            Název otázky
+        </div>
+        <div class="q-good-luck opacity-hidden">
+            Hodně štěstí!
+        </div>
     </div>
 </div>

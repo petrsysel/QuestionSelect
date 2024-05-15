@@ -8,35 +8,88 @@ export class QuestionSelect implements TQuestioSelect{
     //@ts-ignore
     private element: HTMLElement
     //@ts-ignore
-    private invisibleButton: HTMLElement
+    private hiddenMenu: HTMLElement
     //@ts-ignore
-    private selectButton: HTMLButtonElement
+    private hiddenReset: HTMLElement
     //@ts-ignore
     private goodluckLabel: HTMLElement
     //@ts-ignore
     private questionLabel: HTMLElement
+    //@ts-ignore
+    private pickButton: HTMLElement
+    //@ts-ignore
+    private selectedQLabel: HTMLElement
+    //@ts-ignore
+    private goodLuck: HTMLElement
 
     constructor(){
         Ajax.load("templates/QuestionSelect.html").then(template => {
+            // this.element = DomHelper.makeDivWith(template)
             this.element = DomHelper.makeDivWith(template)
             DomHelper.appentToBody(this.element)
-            this.element.classList.add('select-container')
+            
+            this.pickButton = document.getElementsByClassName('pick-btn')[0] as HTMLElement
+            this.selectedQLabel = document.getElementsByClassName('q-selected')[0] as HTMLElement
+            this.goodLuck = document.getElementsByClassName('q-good-luck')[0] as HTMLElement
+            this.hiddenMenu = document.getElementsByClassName('hidden-menu')[0] as HTMLElement
+            this.hiddenReset = document.getElementsByClassName('hidden-reset')[0] as HTMLElement
 
-            this.invisibleButton = DomHelper.get('manage-questions-btn') as HTMLElement
-            this.selectButton = DomHelper.get('select-question-button') as HTMLButtonElement
+            this.reset()
+            this.pickButton.addEventListener('click', () => {
+                this.signal.emit('select-request', undefined)
+                console.log(this.pickButton.classList.toString())
+                this.pickButton.classList.add('fade-out')
+                this.pickButton.addEventListener('transitionend', () => {
+                    this.buttonHide()
+                    this.goodLuck.style.display = 'block'
+                    this.selectedQLabel.style.display = 'block'
 
-            this.goodluckLabel = DomHelper.get('good-luck-label') as HTMLButtonElement
-            this.questionLabel = DomHelper.get('question-selected-label') as HTMLButtonElement
-            console.log(this.questionLabel)
+                    setTimeout(() => {
+                        this.selectedQLabel.classList.add('fade-in')
+                        this.selectedQLabel.addEventListener('transitionend', () => {
+                            this.goodLuck.classList.add('fade-in')
+                        })
+                    },10)
+                })
 
-            this.invisibleButton.addEventListener('click', () => {
-                this.emit('manage-question', undefined)
             })
-            this.selectButton.addEventListener('click', () => {
-                this.emit('select-request', undefined)
+
+            this.hiddenMenu.addEventListener('click', () => {
+                this.signal.emit('manage-question', undefined)
+            })
+            this.hiddenReset.addEventListener('click', () => {
+                this.reset()
             })
         })
         
+    }
+
+    private reset(){
+        this.pickButton.style.display = 'block'
+        
+        this.pickButton.classList.add('transition-off')
+        this.goodLuck.classList.add('transition-off')
+        this.selectedQLabel.classList.add('transition-off')
+
+        this.pickButton.classList.remove('fade-out')
+        this.goodLuck.classList.remove('fade-in')
+        this.selectedQLabel.classList.remove('fade-in')
+
+        this.goodLuck.style.display = 'none'
+        this.selectedQLabel.style.display = 'none'
+
+        setTimeout(() => {
+            this.pickButton.classList.remove('transition-off')
+        this.goodLuck.classList.remove('transition-off')
+        this.selectedQLabel.classList.remove('transition-off')
+        },10)
+
+
+        
+
+    }
+    private buttonHide(){
+        this.pickButton.style.display = 'none'
     }
 
     private emit(event: QSEvent, data: QSData){
@@ -50,13 +103,14 @@ export class QuestionSelect implements TQuestioSelect{
         this.questionLabel.style.opacity = '0'
     }
     showQuestion(question: Question){
-        this.questionLabel.innerHTML = question.name
-        this.questionLabel.style.opacity = '1'
+        
+        this.selectedQLabel.innerHTML = question ? question.name : "Otázky vyčerpány"
+        // this.questionLabel.style.opacity = '1'
     }
     hide(){
-        this.element.style.left = '100vw'
+        this.element.style.display = 'none'
     }
     show(){
-        this.element.style.left = '0'
+        this.element.style.display = 'block'
     }
 }

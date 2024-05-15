@@ -1,2 +1,2 @@
-# tsc-vite-template
-Template with typescript, vite, easybox and jest
+# Losování otázek
+Software pro jednoduché losování například maturitních otázek

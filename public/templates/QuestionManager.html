@@ -1,14 +1,39 @@
 <div id="questions-container" class="slide">
-    <button id="select-btn">Losování</button>
-    <div>
-        <div class="center">
-            <!-- <input type="text" id="question-mark"> -->
-            <input type="text" id="question-name">
-            <button id="add-question">Přidat</button>
+    <div class="layout-container">
+        <div class="q-navbar">
+            <div class="q-title">Otázky</div>
+            <div class="q-controls">
+                <button class="q-control q-controls-btn q-about">O aplikaci</button>
+                <button class="q-control q-controls-btn q-remove-all">Odstranit vše</button>
+                <button class="q-control q-controls-btn q-mark-as-waiting">Vše označit jako čekající</button>
+                <button class="q-control q-controls-btn q-export">Exportovat</button>
+                <button class="q-control q-controls-btn q-import">Importovat</button>
+                <button class="q-control q-controls-btn q-picking">Losování</button>
+            </div>
+            <div class="q-hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
-        <div class="center">
-            <table id="question-list">
-            </table>
+        <div class="q-row q-add">
+            
+            <input type="text" id="question-name" class="q-name q-outline" placeholder="Znění otázky">
+            <button id="add-question" class="q-button q-outline q-add-button">Přidat</button>
+        </div>
+        <div id="question-list" class="q-list">
+            <div class="question" id="q-template">
+                <div class="q-row">
+                    <input type="string" value="1" class="q-id q-outline">
+                    <textarea name="" id="" class="q-name q-textarea q-outline" oninput="autogrow(this)" rows="1">Šablona</textarea>
+                </div>
+                <div class="q-row">
+                    <!-- <a href="javascript:void(0)" class="q-button">Vylosována</a>
+                    <a href="javascript:void(0)" class="q-button">Odebrat</a> -->
+                    <button class="q-button q-outline q-ispicked">Vylosována</button>
+                    <button class="q-button q-outline q-remove">Odebrat</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
